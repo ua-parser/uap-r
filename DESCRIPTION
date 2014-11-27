@@ -12,4 +12,4 @@ Depends:
 Imports:
     Rcpp (>= 0.11.3)
 LinkingTo: Rcpp
-BugReports: https://github.com/Ironholds/WMUtils/issues
+BugReports: https://github.com/ua-parser/uap-r/issues
