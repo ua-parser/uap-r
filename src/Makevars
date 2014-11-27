@@ -1,0 +1,2 @@
+PKG_LIBS = -lboost_regex -lboost_system -lyaml-cpp -lglog
+PKG_CXXFLAGS = -std=c++11

@@ -1,0 +1,15 @@
+Package: uaparser
+Type: Package
+Title: User agent parsing in R
+Version: 0.1.0
+Date: 2014-11-23
+Author: Oliver Keyes and Alex Suhan
+Maintainer: Oliver Keyes <okeyes@wikimedia.org>
+Description: A port of Tobie's ua-parser to R
+License: MIT + file LICENSE
+Depends:
+    downloader
+Imports:
+    Rcpp (>= 0.11.3)
+LinkingTo: Rcpp
+BugReports: https://github.com/Ironholds/WMUtils/issues
