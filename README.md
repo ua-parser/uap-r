@@ -7,7 +7,11 @@ __License:__ [MIT](http://opensource.org/licenses/MIT)<br/>
 
 Installation
 =====
-Install uaparser through the usual <code> install.packages() </code> command, and then place <code>regexes.yaml</code>
+Install uaparser through:
+
+>devtools::install_github("ua-parser/uap-r")
+
+Then place <code>regexes.yaml</code>
 from the [uap-core](https://github.com/ua-parser/uap-core) repository in the installation directory. In the event
 that you don't complete this step, the uaparser will attempt to download the YAML file into a temporary directory
 when called, but this is less efficient and not workable for machines without a direct internet connection.
