@@ -17,6 +17,8 @@ in making web requests, returning the R version, architecture and platform.
 parse_r_agents("R (3.2.0 x86_64-pc-linux-gnu x86_64 linux-gnu)")
 }
 \seealso{
-\code{\link{parse_agents}} for generalised user agent parsing.
+\code{\link{parse_agents}} for generalised user agent parsing, and
+code{\link[urltools]{url_decode}} for removing percentage-encoding from user agents
+before processing them.
 }
 

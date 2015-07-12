@@ -22,6 +22,8 @@ them into their component parts.
 }
 \seealso{
 \code{\link{update_regexes}}, for updating the regular expressions file,
-and \code{\link{parse_r_agents}} for specifically handling R user agents.
+\code{\link{parse_r_agents}} for specifically handling R user agents, and
+code{\link[urltools]{url_decode}} for removing percentage-encoding from user agents
+before processing them.
 }
 
