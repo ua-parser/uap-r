@@ -17,3 +17,14 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// parse_r_agents_
+DataFrame parse_r_agents_(std::vector < std::string > user_agents);
+RcppExport SEXP uaparser_parse_r_agents_(SEXP user_agentsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::vector < std::string > >::type user_agents(user_agentsSEXP);
+    __result = Rcpp::wrap(parse_r_agents_(user_agents));
+    return __result;
+END_RCPP
+}

@@ -5,3 +5,7 @@ ua_parse_ <- function(agents, yaml_file_loc) {
     .Call('uaparser_ua_parse_', PACKAGE = 'uaparser', agents, yaml_file_loc)
 }
 
+parse_r_agents_ <- function(user_agents) {
+    .Call('uaparser_parse_r_agents_', PACKAGE = 'uaparser', user_agents)
+}
+

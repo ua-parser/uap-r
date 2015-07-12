@@ -30,7 +30,8 @@ update_regexes <- function(){
 #'
 #'@return a data.frame consisting of those fields you wanted to return.
 #'
-#'@seealso \code{\link{update_regexes}}, for updating the regular expressions file.
+#'@seealso \code{\link{update_regexes}}, for updating the regular expressions file,
+#'and \code{\link{parse_r_agents}} for specifically handling R user agents.
 #'
 #'@export
 parse_agents <- function(user_agents, fields = NULL){
@@ -45,4 +46,19 @@ parse_agents <- function(user_agents, fields = NULL){
   
   #Otherwise, limit and return
   return(parse_results[,fields])
+}
+
+#'@title Parse R User Agents
+#'@description parses the user agents used by the R programming language
+#'in making web requests, returning the R version, architecture and platform.
+#'
+#'@param user_agents a vector of user agents
+#'
+#'@examples
+#'parse_r_agents("R (3.2.0 x86_64-pc-linux-gnu x86_64 linux-gnu)")
+#'
+#'@seealso \code{\link{parse_agents}} for generalised user agent parsing.
+#'@export
+parse_r_agents <- function(user_agents){
+  return(parse_r_agents_(user_agents))
 }

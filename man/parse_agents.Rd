@@ -21,6 +21,7 @@ Take a vector of user agents and parse
 them into their component parts.
 }
 \seealso{
-\code{\link{update_regexes}}, for updating the regular expressions file.
+\code{\link{update_regexes}}, for updating the regular expressions file,
+and \code{\link{parse_r_agents}} for specifically handling R user agents.
 }
 
