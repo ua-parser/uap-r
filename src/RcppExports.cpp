@@ -5,19 +5,15 @@
 
 using namespace Rcpp;
 
-// c_ua_parse
-DataFrame c_ua_parse(std::vector < std::string > agents, std::string yaml_file_loc);
-RcppExport SEXP uaparser_c_ua_parse(SEXP agentsSEXP, SEXP yaml_file_locSEXP) {
+// ua_parse_
+DataFrame ua_parse_(std::vector < std::string > agents, std::string yaml_file_loc);
+RcppExport SEXP uaparser_ua_parse_(SEXP agentsSEXP, SEXP yaml_file_locSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< std::vector < std::string > >::type agents(agentsSEXP );
-        Rcpp::traits::input_parameter< std::string >::type yaml_file_loc(yaml_file_locSEXP );
-        DataFrame __result = c_ua_parse(agents, yaml_file_loc);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::vector < std::string > >::type agents(agentsSEXP);
+    Rcpp::traits::input_parameter< std::string >::type yaml_file_loc(yaml_file_locSEXP);
+    __result = Rcpp::wrap(ua_parse_(agents, yaml_file_loc));
+    return __result;
 END_RCPP
 }

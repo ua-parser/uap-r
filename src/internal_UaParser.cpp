@@ -6,7 +6,6 @@
 #include <unordered_set>
 
 #include <boost/regex.hpp>
-#include <glog/logging.h>
 #include <yaml-cpp/yaml.h>
 
 namespace {
@@ -25,7 +24,6 @@ typedef AgentStore OsStore;
 typedef AgentStore BrowserStore;
 
 #define FILL_AGENT_STORE(node, agent_store, repl, maj_repl, min_repl)    \
-    CHECK(node.Type() == YAML::NodeType::Map);                           \
     for (auto it = node.begin(); it != node.end(); ++it) {               \
       const std::string key = it.first().to<std::string>();              \
       const std::string value = it.second().to<std::string>();           \
@@ -39,19 +37,15 @@ typedef AgentStore BrowserStore;
         try {                                                            \
           agent_store.minorVersionReplacement = value;                   \
         } catch (...) {}                                                 \
-      } else {                                                           \
-        CHECK(false);                                                    \
-      }                                                                  \
+      }                                                             \
     }
 
 struct UAStore {
   explicit UAStore(const std::string& regexes_file_path) {
     std::ifstream in_stream(regexes_file_path);
-    CHECK(in_stream.good());
-    
+
     YAML::Parser yaml_parser(in_stream);
     YAML::Node regexes;
-    CHECK(yaml_parser.GetNextDocument(regexes));
 
     const auto& user_agent_parsers = regexes["user_agent_parsers"];
     for (const auto& user_agent : user_agent_parsers) {
@@ -79,8 +73,6 @@ struct UAStore {
           device.regExpr = value;
         } else if (key == "device_replacement") {
           device.replacement = value;
-        } else {
-          CHECK(false);
         }
       }
       deviceStore.push_back(device);
@@ -94,7 +86,6 @@ struct UAStore {
 
 template<class AGENT, class AGENT_STORE>
 void fillAgent(AGENT& agent, const AGENT_STORE& store, const boost::smatch& m) {
-  CHECK(!m.empty());
   if (m.size() > 1) {
     agent.family = !store.replacement.empty()
       ? boost::regex_replace(store.replacement, boost::regex("\\$1"), m[1].str())

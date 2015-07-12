@@ -11,9 +11,9 @@ std::string return_checker(std::string returned_string){
   return returned_string;
 }
 
-// Internal C function for parsing user agents.
+// Internal C++ function for parsing user agents.
 // [[Rcpp::export]]
-DataFrame c_ua_parse(std::vector < std::string > agents, std::string yaml_file_loc) {
+DataFrame ua_parse_(std::vector < std::string > agents, std::string yaml_file_loc) {
   
   //Load regex file
   ua_parser::Parser uap(yaml_file_loc);

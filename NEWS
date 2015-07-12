@@ -1,0 +1,6 @@
+uaparser 0.2.0 [WIP]
+=============
+
+* Function renames and improved documentation
+* downloader dependency deprecated; httr dependency added for regex updating
+* regex file included with the package by default
