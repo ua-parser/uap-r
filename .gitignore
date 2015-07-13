@@ -10,3 +10,7 @@
 # RStudio files
 .Rproj.user/
 .Rproj.user
+
+# Autoconf
+config.log
+autom4te.cache/*
