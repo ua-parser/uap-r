@@ -25,7 +25,6 @@ Dependencies
 * The [boost-regex](http://www.boost.org/doc/libs/1_57_0/libs/regex/doc/html/index.html) C++ library;
 * The [boost-system](http://www.boost.org/doc/libs/1_57_0/libs/system/doc/index.html) C++ library;
 * The [libyaml-cpp 0.3](https://code.google.com/p/yaml-cpp/) C++ library;
-* and the [glog](https://code.google.com/p/google-glog/) C++ library.
 
 Contributing upstream
 ======
