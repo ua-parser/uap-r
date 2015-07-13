@@ -1,6 +1,6 @@
 Package: uaparser
 Type: Package
-Title: User agent parsing in R
+Title: User Agent Parsing in R
 Version: 0.2.0
 Date: 2015-07-12
 Author: Oliver Keyes and Alex Suhan
