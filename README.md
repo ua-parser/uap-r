@@ -16,6 +16,8 @@ from the [uap-core](https://github.com/ua-parser/uap-core) repository in the ins
 that you don't complete this step, the uaparser will attempt to download the YAML file into a temporary directory
 when called, but this is less efficient and not workable for machines without a direct internet connection.
 
+Follow the instructions on [this wiki page](https://github.com/ua-parser/uap-r/wiki/Installing-uaparser-on-Mac-OS-X)  if you are seeing errors related to yaml-cpp when attempting to install uaparser on OS X.
+
 Dependencies
 ======
 * R;
