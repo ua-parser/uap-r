@@ -25,8 +25,8 @@ typedef AgentStore BrowserStore;
 
 #define FILL_AGENT_STORE(node, agent_store, repl, maj_repl, min_repl)    \
     for (auto it = node.begin(); it != node.end(); ++it) {               \
-      const std::string key = it.first().to<std::string>();              \
-      const std::string value = it.second().to<std::string>();           \
+      const std::string key = it->first.as<std::string>();              \
+      const std::string value = it->second.as<std::string>();           \
       if (key == "regex") {                                              \
         agent_store.regExpr = value;                                     \
       } else if (key == repl) {                                          \
@@ -67,8 +67,8 @@ struct UAStore {
     for (const auto& d : device_parsers) {
       DeviceStore device;
       for (auto it = d.begin(); it != d.end(); ++it) {
-        const std::string key = it.first().to<std::string>();
-        const std::string value = it.second().to<std::string>();
+        const std::string key = it->first.as<std::string>();
+        const std::string value = it->second.as<std::string>();
         if (key == "regex") {
           device.regExpr = value;
         } else if (key == "device_replacement") {

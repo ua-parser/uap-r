@@ -17,19 +17,29 @@
 #include <fstream>
 #include <boost/algorithm/string/replace.hpp>
 #include <yaml-cpp/yaml.h>
+#include <Rcpp.h>
 #include "internal_ua_parser.h"
 
 namespace ua_parser {
 BrowserParser::BrowserParser(const YAML::Node &yaml_attributes) {
-  yaml_attributes["regex"] >> pattern;
+  pattern = yaml_attributes["regex"].as<std::string>();
   regex = boost::regex(pattern);
 
-  if (const YAML::Node *pName =yaml_attributes.FindValue("family_replacement"))
-    overrides.family = pName->to<std::string>();
-  if (const YAML::Node *pName =yaml_attributes.FindValue("v1_replacement"))
-    *pName >> overrides.major;
-  if (const YAML::Node *pName =yaml_attributes.FindValue("v2_replacement"))
-    *pName >> overrides.minor;
+  try { // This try-catch block can be removed when the const bug in yaml-cpp is fixed.
+    if (yaml_attributes["family_replacement"]) {
+      overrides.family = yaml_attributes["family_replacement"].as<std::string>();
+    }
+  } catch (const YAML::InvalidNode& e) { /* No replacement. */ }
+  try { // This try-catch block can be removed when the const bug in yaml-cpp is fixed.
+    if (yaml_attributes["v1_replacement"]) {
+      overrides.major = yaml_attributes["v1_replacement"].as<std::string>();
+    }
+  } catch (const YAML::InvalidNode& e) { /* No replacement. */ }
+  try { // This try-catch block can be removed when the const bug in yaml-cpp is fixed.
+    if (yaml_attributes["v2_replacement"]) {
+      overrides.minor = yaml_attributes["v2_replacement"].as<std::string>();
+    }
+  } catch (const YAML::InvalidNode& e) { /* No replacement. */ }
 }
 
 
@@ -72,15 +82,24 @@ Browser BrowserParser::Parse(const std::string &user_agent_string) {
 }
 
 OperatingSystemParser::OperatingSystemParser(const YAML::Node &yaml_attributes) {
-  yaml_attributes["regex"] >> pattern;
+  pattern = yaml_attributes["regex"].as<std::string>();
   regex = boost::regex(pattern);
 
-  if (const YAML::Node *pName =yaml_attributes.FindValue("os_replacement"))
-    *pName >> overrides.os;
-  if (const YAML::Node *pName =yaml_attributes.FindValue("os_v1_replacement"))
-    *pName >> overrides.major;
-  if (const YAML::Node *pName =yaml_attributes.FindValue("os_v2_replacement"))
-    *pName >> overrides.minor;
+  try { // This try-catch block can be removed when the const bug in yaml-cpp is fixed.
+    if (yaml_attributes["os_replacement"]) {
+      overrides.os = yaml_attributes["os_replacement"].as<std::string>();
+    }
+  } catch (const YAML::InvalidNode& e) { /* No replacement. */ }
+  try { // This try-catch block can be removed when the const bug in yaml-cpp is fixed.
+    if (yaml_attributes["os_v1_replacement"]) {
+      overrides.major = yaml_attributes["os_v1_replacement"].as<std::string>();
+    }
+  } catch (const YAML::InvalidNode& e) { /* No replacement. */ }
+  try { // This try-catch block can be removed when the const bug in yaml-cpp is fixed.
+    if (yaml_attributes["os_v2_replacement"]) {
+      overrides.minor = yaml_attributes["os_v2_replacement"].as<std::string>();
+    }
+  } catch (const YAML::InvalidNode& e) { /* No replacement. */ }
 }
 
 OperatingSystem OperatingSystemParser::Parse(const std::string &user_agent_string) {
@@ -123,11 +142,14 @@ OperatingSystem OperatingSystemParser::Parse(const std::string &user_agent_strin
 }
 
 DeviceParser::DeviceParser(const YAML::Node &yaml_attributes) {
-  yaml_attributes["regex"] >> pattern;
+  pattern = yaml_attributes["regex"].as<std::string>();
   regex = boost::regex(pattern);
 
-  if (const YAML::Node *pName=yaml_attributes.FindValue("device_replacement"))
-    *pName >> overrides;
+  try { // This try-catch block can be removed when the const bug in yaml-cpp is fixed.
+    if (yaml_attributes["device_replacement"]) {
+      overrides = yaml_attributes["device_replacement"].as<std::string>();
+    }
+  } catch (const YAML::InvalidNode& e) { /* No replacement. */ }
 }
 
 Device DeviceParser::Parse(const std::string &user_agent_string) {
@@ -155,7 +177,7 @@ template<class ParserType>
 static std::vector<ParserType> ParseYaml(const YAML::Node &yaml_regexes) {
   std::vector<ParserType> parsers;
 
-  for (YAML::Iterator i=yaml_regexes.begin(); i!=yaml_regexes.end(); i++) {
+  for (auto i=yaml_regexes.begin(); i!=yaml_regexes.end(); i++) {
     ParserType parser(*i);
 
     parsers.push_back(parser);
@@ -166,16 +188,12 @@ static std::vector<ParserType> ParseYaml(const YAML::Node &yaml_regexes) {
 
 
 Parser::Parser(const std::string &yaml_file) {
-  std::ifstream in(yaml_file.c_str());
-  if (!in.good()) {
-    throw std::range_error("Could not open YAML file");
-    return;
+  YAML::Node doc = YAML::LoadFile(yaml_file);
+
+  if (doc.IsNull()) {
+    Rcpp::stop("Could not open user agent YAML file");
   }
 
-  YAML::Parser parser(in);
-
-  YAML::Node doc;
-  parser.GetNextDocument(doc);
 
   _browser_parsers = ParseYaml<BrowserParser>(doc["user_agent_parsers"]);
   _os_parsers = ParseYaml<OperatingSystemParser>(doc["os_parsers"]);

@@ -16,7 +16,7 @@ from the [uap-core](https://github.com/ua-parser/uap-core) repository in the ins
 that you don't complete this step, the uaparser will attempt to download the YAML file into a temporary directory
 when called, but this is less efficient and not workable for machines without a direct internet connection.
 
-Follow the instructions on [this wiki page](https://github.com/ua-parser/uap-r/wiki/Installing-uaparser-on-Mac-OS-X)  if you are seeing errors related to yaml-cpp when attempting to install uaparser on OS X.
+This package no longer works with the old (pre-0.5) version of the `yaml-cpp` library. You will need version 0.5 or later.
 
 Dependencies
 ======
@@ -26,7 +26,7 @@ Dependencies
 * [downloader](http://cran.r-project.org/web/packages/downloader/index.html);
 * The [boost-regex](http://www.boost.org/doc/libs/1_57_0/libs/regex/doc/html/index.html) C++ library;
 * The [boost-system](http://www.boost.org/doc/libs/1_57_0/libs/system/doc/index.html) C++ library;
-* The [libyaml-cpp 0.3](https://code.google.com/p/yaml-cpp/) C++ library;
+* The [libyaml-cpp](https://github.com/jbeder/yaml-cpp/) C++ library, version 0.5 or later.
 
 Contributing upstream
 ======
